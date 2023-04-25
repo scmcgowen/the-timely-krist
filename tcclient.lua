@@ -27,15 +27,24 @@ if args[1] == "list" then
     textutils.pagedPrint(response.readAll())
     response.close()
 elseif args[1] == "get" and args[2] and args[3] then
+    print("Downloaded issue "..args[2])
     local response = http.get("https://raw.githubusercontent.com/scmcgowen/the-timely-krist/main/issues/issue_"..args[2]..".2dj",nil,true)
     
     local f = assert(fs.open(args[3], "wb"))
     f.write(response.readAll())
     response.close()
     f.close()
+    print("Downloaded issue "..args[2])
 elseif args[1] == "print" and args[2] then
     shell.run("poster https://raw.githubusercontent.com/scmcgowen/the-timely-krist/main/issues/issue_"..args[2]..".2dj")
-   
+elseif args[1] == "update" then
+    print("Updating Client")
+    local response = http.get("https://raw.githubusercontent.com/scmcgowen/the-timely-krist/main/issues/issue_"..args[2]..".2dj",nil,true)
+    local f = assert(fs.open(shell.getRunningProgram, "wb"))
+    f.write(response.readAll())
+    response.close()
+    f.close()
+    print("Successfully updated.")
 else
     printArgs()
 end
