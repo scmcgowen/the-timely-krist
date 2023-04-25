@@ -8,6 +8,8 @@ local function printArgs()
     print(" - List all published issues")
     print("tcclient get <issue> <fn>")
     print(" - Save <issue> to <fn> as a 2dj file")
+    print("tcclient print <issue>")
+    print(" - Print <issue> directly")
 end
 
 if #args < 1 then
@@ -31,7 +33,8 @@ elseif args[1] == "get" and args[2] and args[3] then
     f.write(response.readAll())
     response.close()
     f.close()
-    
+elseif args[1] == "print" and args[2] then
+    shell.run("poster https://raw.githubusercontent.com/scmcgowen/the-timely-krist/main/issues/issue_"..args[2]..".2dj")
    
 else
     printArgs()
